@@ -17,9 +17,9 @@ const footerSections: FooterSection[] = [
     title: "News",
     links: [
       { label: "Home Page", href: "/" },
-      { label: "Business", href: "/business-innovation" },
-      { label: "Culture", href: "/culture-identity" },
-      { label: "Entertainment", href: "/arts-media-expression" },
+      { label: "Business & Economy", href: "/business-economy" },
+      { label: "Multi Cultural Community", href: "/multicultural-community" },
+      { label: "Politics", href: "/politics" },
     ],
   },
   {
