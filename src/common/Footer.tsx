@@ -23,22 +23,22 @@ const footerSections: FooterSection[] = [
     ],
   },
   {
-    title: "Lifestyle",
+    title: "The Shared Canvas",
     links: [
-      { label: "People", href: "/people-profiles" },
-      { label: "Sports", href: "/sports-play" },
-      { label: "Food", href: "/food-flavours" },
-      { label: "Culture", href: "/culture-identity" },
+      { label: "News & Current Affairs", href: "/the-shared-canvas/news-current-affairs" },
+      { label: "National News", href: "/the-shared-canvas/national-news" },
+      { label: "World News", href: "/the-shared-canvas/world-news" },
+      { label: "Top Stories", href: "/the-shared-canvas/top-stories" },
 
     ],
   },
   {
-    title: "Opinion",
+    title: "Tech & Innovation",
     links: [
-      { label: "Community", href: "/community" },
-      { label: "Perspective", href: "/voices-perspectives" },
-      { label: "Business", href: "/business-innovation" },
-      { label: "Contact Us", href: "/contact-us" },
+      { label: "The Modern Home", href: "/tech-innovation/the-modern-home" },
+      { label: "Digital Life", href: "/tech-innovation/digital-life" },
+      { label: "Green Tech", href: "/business-innovation" },
+      { label: "Future Proof", href: "/tech-innovation/future-proof" },
     ],
   },
   {
