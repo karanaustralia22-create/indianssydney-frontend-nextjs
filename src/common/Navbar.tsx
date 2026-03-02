@@ -41,11 +41,6 @@ type Category = {
   subCategories: SubCategory[];
 };
 
-const staticRoutes = [
-  { name: "Live Events", path: "/live-events" },
-  { name: "Videos & Podcasts", path: "/video-podcast" },
-];
-
 const Navbar: React.FC = () => {
   const { data } = useGetAllCategoryQuery(undefined);
   const [isOpen, setIsOpen] = useState(false);
@@ -237,16 +232,6 @@ const Navbar: React.FC = () => {
 
           {/* Menu */}
           <div className="flex justify-center gap-4 xl:gap-6 py-4 flex-wrap">
-            {staticRoutes.map((route) => (
-              <button
-                key={route.path}
-                onClick={() => router.push(route.path)}
-                className="text-sm font-medium hover:text-blue-primary transition-colors duration-200"
-              >
-                {route.name}
-              </button>
-            ))}
-
             {data?.data
               ?.slice(0, showMore ? allMenus.length : 4)
               ?.map((menu: Category) => (
@@ -297,7 +282,6 @@ const Navbar: React.FC = () => {
         {isOpen && (
           <div className="md:hidden fixed left-0 right-0 top-[0px] sm:top-[68px] bottom-0 bg-bg-cream z-40 border-t border-gray-200 overflow-y-auto transition-all duration-300">
             <div className="flex items-center pt-2 border-b border-slight-border pb-2">
-              {/* Mobile hamburger - Left side on mobile */}
               <button
                 onClick={toggleMenu}
                 className="md:hidden text-gray-700 focus:outline-none mr-2 sm:mr-3 pl-4"
@@ -310,7 +294,6 @@ const Navbar: React.FC = () => {
                 )}
               </button>
 
-              {/* Logo/Title - Centered on mobile, left-aligned on md+ */}
               <Link
                 href="/"
                 className="flex-1 md:flex-none text-center md:text-left"
@@ -345,7 +328,7 @@ const Navbar: React.FC = () => {
                 <h3 className="text-sm font-semibold mb-3 text-gray-700">
                   Language
                 </h3>
-                <div className="relative  notranslate">
+                <div className="relative notranslate">
                   <Select value={currentLang} onValueChange={handleChange}>
                     <SelectTrigger className="w-full border-gray-300 bg-white">
                       <SelectValue placeholder="Select language" />
@@ -417,18 +400,6 @@ const Navbar: React.FC = () => {
 
               {/* Menu Items */}
               <div className="space-y-1">
-                {staticRoutes.map((route) => (
-                  <button
-                    key={route.path}
-                    onClick={() => {
-                      router.push(route.path);
-                      setIsOpen(false);
-                    }}
-                    className="w-full text-left p-3 text-sm font-medium text-gray-700 hover:text-blue-primary hover:bg-gray-50 rounded-md transition-colors"
-                  >
-                    {route.name}
-                  </button>
-                ))}
                 {data?.data
                   ?.slice(0, showMore ? allMenus.length : 7)
                   .map((menu: Category) => (
