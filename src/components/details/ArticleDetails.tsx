@@ -10,7 +10,6 @@ import {
 } from "@/store/features/bookmark/bookmark.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
 import { ArrowLeft, Bookmark, Calendar, Eye, Share2, User } from "lucide-react";
-import { Editor } from "primereact/editor";
 import { useState } from "react";
 import { toast } from "sonner";
 import PrimaryButton from "../reusable/PrimaryButton";
@@ -19,7 +18,6 @@ import Newsletter from "./Newsletter";
 import RecommendedArticles from "./RecommendedArticles";
 import ReportModal from "./ReportModal";
 import TTSPlayer from "../reusable/TTSPlayer";
-// import TTSPlayer from '@/components/TTSPlayer';
 
 interface ArticlePreviewProps {
   formData: DetailsData;
@@ -32,9 +30,7 @@ const ArticleDetails = ({ formData, onBack }: ArticlePreviewProps) => {
   const dispatch = useAppDispatch();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const currentDate = new Date().toLocaleDateString();
-  const editorModules = {
-    toolbar: [],
-  };
+
   // Sort additional fields by order
   const sortedAdditionalFields = [...formData.additionalContents].sort(
     (a, b) => a.order - b.order
@@ -86,8 +82,6 @@ const ArticleDetails = ({ formData, onBack }: ArticlePreviewProps) => {
                   <div className="my-3">
                     {(() => {
                       const parts: string[] = [];
-                      // formData.title && parts.push(formData.title);
-                      // formData.subTitle && parts.push(formData.subTitle);
 
                       // Clean paragraph (strip HTML if any)
                       if (formData.paragraph) {
@@ -214,26 +208,16 @@ const ArticleDetails = ({ formData, onBack }: ArticlePreviewProps) => {
                   </div>
                 )}
 
-                {/* Paragraph */}
-                {/* {formData?.paragraph && (
-                  <div className="leading-relaxed text-justify my-4">
-                    {formData.paragraph}
-                  </div>
-                )} */}
-                <Editor
-                  value={formData?.paragraph as string}
-                  readOnly
-                  style={{
-                    minHeight: "320px",
-                    border: "none",
-                    backgroundColor: "transparent",
-                    fontSize: "16px",
-                  }}
-                  modules={editorModules}
-                  showHeader={false}
-                  unstyled={true}
-                  className="no-border"
-                />
+                {/* Paragraph - replaced PrimeReact Editor with plain div for Google Translate compatibility */}
+                {formData?.paragraph && (
+                  <div
+                    className="prose max-w-none leading-relaxed text-justify my-4"
+                    style={{ fontSize: "16px" }}
+                    dangerouslySetInnerHTML={{
+                      __html: formData.paragraph as string,
+                    }}
+                  />
+                )}
 
                 {/* Video */}
                 {formData?.video && (
@@ -283,12 +267,13 @@ const ArticleDetails = ({ formData, onBack }: ArticlePreviewProps) => {
                         );
                       case "paragraph":
                         return (
-                          <p
+                          <div
                             key={id}
                             className="text-gray-700 leading-relaxed text-justify my-3 md:my-5"
-                          >
-                            {value as string}
-                          </p>
+                            dangerouslySetInnerHTML={{
+                              __html: value as string,
+                            }}
+                          />
                         );
                       case "image":
                         return (
@@ -395,7 +380,7 @@ const ArticleDetails = ({ formData, onBack }: ArticlePreviewProps) => {
       <ShareModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
-        contentUrl={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/details/article/${formData?.id}`} // Dynamic content URL
+        contentUrl={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/details/article/${formData?.id}`}
         contentTitle={formData?.title || "Content Title"}
       />
     </div>
